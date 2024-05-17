@@ -9,7 +9,12 @@ const NavButton = ({
   isActive?: boolean;
 }) => {
   return (
-    <Link className={`text-zinc-500 hover:text-zinc-700 ${isActive && 'text-blue-400'} `} href={href}>
+    <Link
+      className={`text-zinc-300 hover:scale-105 transition-all dura ${
+        isActive && "text-blue-400"
+      } `}
+      href={href}
+    >
       {label}
     </Link>
   );
