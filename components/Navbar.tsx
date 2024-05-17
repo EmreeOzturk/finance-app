@@ -2,6 +2,8 @@
 
 import NavButton from "./NavButton";
 import { usePathname } from "next/navigation";
+import  {Sheet,SheetContent,SheetTrigger} from "@/components/ui/sheet"
+import { Menu } from "lucide-react";
 const routes = [
   { href: "/", label: "Overview" },
   {
@@ -24,7 +26,7 @@ const routes = [
 const Navbar = () => {
   const pathname = usePathname();
   return (
-    <nav className="hidden lg:flex items-center gap-x-2 overflow-x-auto">
+    <nav className="hidden md:flex items-center gap-x-2 overflow-x-auto">
       {routes.map((route) => (
         <NavButton
           key={route.label}
