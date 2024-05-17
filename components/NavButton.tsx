@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
 const NavButton = ({
   href,
   label,
@@ -9,14 +11,17 @@ const NavButton = ({
   isActive?: boolean;
 }) => {
   return (
-    <Link
-      className={`text-zinc-300 hover:scale-105 transition-all dura ${
-        isActive && "text-blue-400"
-      } `}
-      href={href}
+    <Button
+      asChild
+      size="sm"
+      variant="outline"
+      className={cn(
+        "w-full text-white justify-between font-normal hover:text-white   outline-none border-none hover:bg-white/20",
+        isActive ? "bg-white/10" : "bg-transparent"
+      )}
     >
-      {label}
-    </Link>
+      <Link href={href}>{label}</Link>
+    </Button>
   );
 };
 
