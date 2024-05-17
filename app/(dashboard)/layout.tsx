@@ -1,9 +1,11 @@
+import Header from "@/components/Header";
+
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
-      <h1>Dashboard Layout</h1>
-      {children}
-    </div>
+    <>
+      <Header />
+      <main className="px-3 lg:px-14">{children}</main>
+    </>
   );
 };
 
