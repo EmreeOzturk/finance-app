@@ -9,6 +9,7 @@ import { useNewUser } from "../hooks/useNewUser";
 import UserForm from "./UserForm";
 import { insertUserSchema } from "@/db/schema";
 import { z } from "zod";
+import { useCreateUser } from "../api/useCreateUser";
 const formSchema = insertUserSchema.pick({
   name: true,
 });
@@ -16,8 +17,9 @@ const formSchema = insertUserSchema.pick({
 type FormValues = z.input<typeof formSchema>;
 const NewUserSheet = () => {
   const { isOpen, onClose } = useNewUser();
+  const mutation =  useCreateUser();
   const onSubmit = (values: FormValues) => {
-    console.log(values);
+    mutation.mutate(values);
   };
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
