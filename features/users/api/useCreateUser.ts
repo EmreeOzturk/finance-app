@@ -1,6 +1,6 @@
 import { InferRequestType, InferResponseType } from "hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
+import { toast } from "sonner";
 import { client } from "@/lib/hono";
 
 type ResponseType = InferResponseType<typeof client.api.users.$post>;
@@ -15,12 +15,14 @@ export const useCreateUser = () => {
       return await res.json();
     },
     onSuccess: () => {
+      toast.success("User created successfully");
       queryClient.invalidateQueries({
         queryKey: ["users"],
       });
     },
     onError: (error) => {
-      console.error(error);
-    },  
+      toast.error("Failed to create user");
+    },
   });
+  return mutation;
 };
