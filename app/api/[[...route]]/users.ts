@@ -4,6 +4,7 @@ import { db } from "@/db/drizzle";
 import { insertUserSchema, users } from "@/db/schema";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { eq } from "drizzle-orm";
+import { createId } from "@paralleldrive/cuid2";
 const app = new Hono()
   .get("/", clerkMiddleware(), async (c) => {
     const auth = getAuth(c);
@@ -26,20 +27,40 @@ const app = new Hono()
       data,
     });
   })
-  .post("/", clerkMiddleware(), 
-    zValidator("json",insertUserSchema.pick({
-      name: true,
-    }))
-    ,async (c) => {
-    const auth = getAuth(c);
-    if (!auth?.userId) {
-      return c.json(
-        {
-          error: "Unauthorized",
-        },
-        401
-      );
+  .post(
+    "/",
+    clerkMiddleware(),
+    zValidator(
+      "json",
+      insertUserSchema.pick({
+        name: true,
+      })
+    ),
+    async (c) => {
+      const auth = getAuth(c);
+      const values = c.req.valid("json");
+      if (!auth?.userId) {
+        return c.json(
+          {
+            error: "Unauthorized",
+          },
+          401
+        );
+      }
+
+      const [data] = await db
+        .insert(users)
+        .values({
+          userId: auth.userId,
+          id: createId(),
+          ...values,
+        })
+        .returning();
+
+      return c.json({
+        data,
+      });
     }
-  });
+  );
 
 export default app;
