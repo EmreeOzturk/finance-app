@@ -17,9 +17,13 @@ const formSchema = insertUserSchema.pick({
 type FormValues = z.input<typeof formSchema>;
 const NewUserSheet = () => {
   const { isOpen, onClose } = useNewUser();
-  const mutation =  useCreateUser();
+  const mutation = useCreateUser();
   const onSubmit = (values: FormValues) => {
-    mutation.mutate(values);
+    mutation.mutate(values, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
   };
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
@@ -30,7 +34,9 @@ const NewUserSheet = () => {
             Enter your details below to create a new user.
           </SheetDescription>
         </SheetHeader>
-        <UserForm onSubmit={onSubmit} disabled={false} 
+        <UserForm
+          onSubmit={onSubmit}
+          disabled={mutation.isPending}
           defaultValues={{
             name: "",
           }}
