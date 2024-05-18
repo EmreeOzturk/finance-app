@@ -44,7 +44,7 @@ const UserForm = ({
   });
 
   const handleSubmit = (values: FormValues) => {
-    console.log({ values });
+    onSubmit(values);
   };
 
   const handleDelete = () => {
@@ -75,7 +75,11 @@ const UserForm = ({
             );
           }}
         />
-        <Button type="submit" className="w-full" disabled={disabled}>
+        <Button
+          type="submit"
+          className="w-full mt-2"
+          disabled={disabled}
+        >
           {id ? "Update" : "Create"}
         </Button>
         {!!id && (
