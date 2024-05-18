@@ -1,7 +1,15 @@
 import { Hono } from "hono";
-const app = new Hono().get("/", (c) => {
+import { db } from "@/db/drizzle";
+import { users } from "@/db/schema";
+const app = new Hono().get("/", async (c) => {
+  const data = await db
+    .select({
+      id: users.id,
+      name: users.name,
+    })
+    .from(users);
   return c.json({
-    users: [],
+    data,
   });
 });
 
