@@ -1,6 +1,6 @@
 "use client";
 
-import NewAccountSheet from "@/features/users/components/NewAccountSheet";
+import NewUserSheet from "@/features/users/components/NewUserSheet";
 import { useMountedState } from "react-use";
 const SheetProvider = () => {
   const mounted = useMountedState();
@@ -8,7 +8,7 @@ const SheetProvider = () => {
   if (!mounted) return null;
   return (
     <>
-      <NewAccountSheet />
+      <NewUserSheet />
     </>
   );
 };
