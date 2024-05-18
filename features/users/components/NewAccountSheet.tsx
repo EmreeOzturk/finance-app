@@ -5,9 +5,11 @@ import {
   SheetDescription,
   SheetHeader,
 } from "@/components/ui/sheet";
+import { useNewAccount } from "../hooks/useNewAccount";
 const NewAccountSheet = () => {
+    const {isOpen,onClose,onOpen} = useNewAccount();
   return (
-    <Sheet open>
+    <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent className="space-y-4">
         <SheetHeader>
           <SheetTitle>Create an account</SheetTitle>
