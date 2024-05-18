@@ -6,6 +6,7 @@ import {
   SheetHeader,
 } from "@/components/ui/sheet";
 import { useNewUser } from "../hooks/useNewUser";
+import UserForm from "./UserForm";
 const NewUserSheet = () => {
   const { isOpen, onClose } = useNewUser();
   return (
@@ -13,10 +14,11 @@ const NewUserSheet = () => {
       <SheetContent className="space-y-4">
         <SheetHeader>
           <SheetTitle>Create an user</SheetTitle>
+          <SheetDescription>
+            Enter your details below to create a new user.
+          </SheetDescription>
         </SheetHeader>
-        <SheetDescription>
-          Enter your details below to create a new user.
-        </SheetDescription>
+        <UserForm onSubmit={() => {}} disabled={false} />
       </SheetContent>
     </Sheet>
   );
